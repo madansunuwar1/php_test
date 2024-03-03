@@ -1,0 +1,495 @@
+/*** Variables ***/
+$primary: #ffa800;
+$secondary: #bf3131;
+$bgcolor: #365486;
+$bcpncolor: #982777;
+
+:root {
+  --cnvs-header-height: 58px;
+  --cnvs-themecolor: #ffa800;
+  --cnvs-header-sticky-bg: #bf3131;
+  --bs-primary-rgb: 191, 49, 49;
+  --cnvs-slider-arrow-color: #ffa800;
+  --cnvs-canvas-slider-dots-size: 2.5rem;
+  --cnvs-slider-pagination-rounded: 16%;
+  --cnvs-content-padding: 2.5rem;
+  --cnvs-section-margin: 2.5rem;
+}
+
+.button {
+  --cnvs-btn-padding-x: 1rem;
+
+  &:hover {
+    background-color: $secondary;
+  }
+}
+
+#header {
+  --cnvs-primary-menu-color: #fff;
+  --cnvs-primary-menu-font-size: 0.835rem;
+  --cnvs-primary-menu-font-weight: 500;
+}
+
+.is-expanded-menu {
+  .menu-link {
+    --cnvs-primary-menu-padding-y: 20px;
+    --cnvs-primary-menu-padding-x: 8px;
+  }
+}
+
+/*** Colors ***/
+.bg-yellow {
+  background-color: $primary;
+}
+
+.bg-color {
+  background-color: $bgcolor !important;
+}
+
+.bg-bcpn, .bg-bcpn:hover {
+  background-color: $bcpncolor;
+}
+
+/*** Typography ***/
+.heading-block {
+  width: auto;
+  text-align: center;
+}
+
+.card-title {
+  color: #fff;
+  text-align: center;
+}
+
+.card-text {
+  margin: 2rem 0.5rem;
+}
+
+.gradient-border {
+  background: linear-gradient(to right, $primary 0%, $primary 33.33%, $secondary 34%, $secondary 66.66%, $primary 67%);
+  width: 100%;
+  height: 0.25rem;
+}
+
+.title-bottom-border h3 {
+  border-bottom: 0;
+  padding-bottom: 0.25rem;
+}
+
+.fancy-title {
+  flex-direction: column;
+}
+
+/*** Header ***/
+#logo a .logo-default {
+  width: 160px;
+  padding: 0.5rem 0
+}
+
+#top-bar {
+  background-color: $primary;
+
+  &.bcpn-bar {
+    background-color: $bcpncolor;
+  }
+}
+
+#header-wrap {
+  background-color: rgba($secondary, 0.75);
+}
+
+.is-expanded-menu {
+  #header + .include-header {
+    margin-top: calc(-1 * var(--cnvs-header-height) - 1px) !important;
+  }
+
+  .menu-link {
+    display: flex;
+
+    &:after {
+      content: "|";
+      margin-left: 1rem;
+      font-weight: 400;
+      font-size: 1.25rem;
+    }
+  }
+}
+
+/*** Home Banner ***/
+.swiper-socials {
+  position: absolute;
+  bottom: 3%;
+  right: 3%;
+
+  h5, i {
+    color: #fff;
+    font-size: 1.5rem;
+  }
+}
+
+.about-socials {
+  h5, i {
+    color: $primary;
+    font-size: 1.5rem;
+  }
+}
+
+.swiper-pagination span {
+  height: 0.6rem;
+  border-width: 2px;
+}
+
+/*** Bridge Card Section ***/
+.bridge-logo {
+    text-align: center;
+
+    img {
+        width: 300px;
+        margin-bottom: 1rem;
+    }
+}
+
+.card {
+transition: transform 100ms ease-in;
+
+  &-news {
+    .card-body {
+      min-height: 300px;
+    }
+  }
+
+  &:hover {
+    transform: scale(0.98) !important;
+    cursor: pointer;
+  }
+}
+
+#club {
+  .card-tag {
+    border: 3px solid $secondary;
+    width: fit-content;
+    padding: 0.5rem;
+    font-size: 1.5rem;
+    font-weight: 500;
+    color: #fff;
+    margin: {
+      left: 1rem;
+      top: 1rem;
+    }
+  }
+
+  .card-img {
+    text-align: center;
+    margin: 1rem auto;
+    width: 200px;
+    height: 200px;
+    border-radius: 100%;
+    background-color: #fff;
+    overflow: hidden;
+
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+    }
+  }
+
+  small,
+  span,
+  li p {
+    color: #fff;
+    margin: 1rem 0;
+  }
+
+  li {
+    h6 {
+      color: #fff;
+      font-size: 1.2rem;
+      text-align: center;
+      font-weight: 400;
+      margin: 1rem 0;
+    }
+  }
+}
+
+/*** Counter ***/
+.counter-section {
+  background-color: $primary;
+}
+
+.counter-box {
+  border: 1px dashed #fff;
+  padding: 0 10px 50px;
+
+  .counter {
+    background-color: $primary;
+    transform: translateY(-50%);
+    min-width: 100px;
+    text-align: center;
+    color: $bgcolor !important;
+    display: inline-block;
+  }
+}
+
+.text-eclipse {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  margin-bottom: 0;
+
+  &--4 {
+    -webkit-line-clamp: 4;
+  }
+}
+
+.pagination {
+  margin-top: 2rem;
+  margin-bottom: 0.5rem;
+
+  .page-item {
+    &:first-child,
+    &:last-child {
+      .page-link {
+        border-radius: 0;
+      }
+    }
+  }
+
+  .page-link {
+    background-color: $primary;
+    color: #000;
+    border-color: $primary;
+  }
+}
+
+/*** Members ***/
+.section span.rounded-pill {
+  color: #fff;
+  transition: background-color 250ms ease-in;
+  font-size: 0.85rem;
+
+  &:hover {
+    cursor: pointer;
+    background-color: $secondary;
+  }
+}
+
+/*** Gallery ***/
+.bg-primary .owl-item img {
+  height: 11rem;
+  object-fit: cover;
+}
+
+/*** Index 3 ***/
+.borderline {
+  h4 {
+    margin-bottom: 0;
+  }
+
+  ul {
+    margin-bottom: 0.25rem;
+  }
+
+  &:after {
+    content: "-----------------------------------------";
+    letter-spacing: 5px;
+  }
+}
+
+/*** Blog Section ***/
+.entry-title {
+    h2 {
+        margin-top: 1rem;
+    }
+
+    h5 {
+        font-size: 0.85rem;
+    }
+}
+
+#members img {
+  width: 110px !important;
+  height: 110px;
+  border-radius: 100%;
+}
+
+.entry-meta ul {
+  justify-content: end;
+}
+
+/*** Footer ***/
+#footer {
+  background-color: $primary;
+
+  &.bcpn-bg {
+    background-color: $bcpncolor;
+
+    li:before, h4, a {
+      color: #fff;
+    }
+  }
+
+  .widget_links {
+    li a {
+        font-size: 0.85rem;
+    }
+  }
+
+    .footer-widgets-wrap {
+        .button {
+            padding: 0.45rem 1rem;
+            color: #000;
+            border-color: #000 !important;
+        }
+    }
+}
+
+/*** Form ***/
+.login {
+  text-align: center;
+
+  i {
+    color: $primary;
+    font-size: 4rem;
+  }
+}
+
+form {
+  --cnvs-form-group-margin: 1.5rem;
+}
+
+#oc-clubs {
+  ul {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    margin-bottom: 0;
+
+    li {
+      width: 18%;
+    }
+  }
+}
+
+/*** Responsive ***/
+@media (min-width: 992px) {
+  .min-vh-md-85 {
+    min-height: 85vh !important;
+  }
+}
+
+@media (max-width: 767px) {
+  .col-mb-50 {
+    --cnvs-col-mb: 30px;
+  }
+
+  .min-vh-35 {
+    min-height: 35vh;
+  }
+
+  .header-extras li {
+    margin-left: 0.25rem;
+  }
+
+  .content-wrap p {
+    text-align: center;
+  }
+
+  .primary-menu-trigger, #page-menu-trigger {
+    padding: {
+      left: 1.15rem;
+      right: 0.45rem;
+    }
+  }
+
+  .header-misc {
+    .bg-primary {
+      margin: 0.75rem 0;
+    }
+  }
+
+  .swiper-socials {
+    bottom: 6%;
+  }
+
+  .swiper-horizontal > .swiper-pagination-bullets, .swiper-pagination-bullets.swiper-pagination-horizontal, .swiper-pagination-custom, .swiper-pagination-fraction {
+    bottom: 5px !important;
+  }
+
+  .borderline {
+    &:after {
+      content: "---------------------------------------";
+    }
+  }
+
+  .entry-date {
+    margin-top: 1rem;
+  }
+
+  .row .pagination:first-of-type {
+    margin-bottom: 3.5rem;
+  }
+
+  .footer-logo {
+    width: 200px;
+    margin: 0 auto;
+  }
+
+  .widget > h4 {
+    margin-bottom: 0.5rem;
+  }
+
+  #oc-clubs {
+    ul {
+      li {
+        width: 45%;
+      }
+    }
+  }
+
+  .button {
+    --cnvs-btn-fontsize: 0.75rem;
+    --cnvs-btn-padding-x: 0.75rem;
+    --cnvs-btn-padding-y: 0.45rem;
+  }
+
+  #logo a .logo-default {
+    width: 100px;
+  }
+
+  .single-post .entry-content .entry-image {
+    margin: 0 auto 1rem;
+  }
+
+  .entry-title h2 {
+    text-align: center;
+  }
+
+  .entry-meta ul {
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1441px) {
+  #header {
+    --cnvs-primary-menu-font-size: 1rem;
+  }
+
+  #top-bar {
+    .header-row {
+      margin: 0 2.15rem;
+    }
+  }
+
+  .borderline {
+    &:after {
+      content: "------------------------------------------------";
+    }
+  }
+
+  .entry-title h5, .section span.rounded-pill, .widget_links li a {
+    font-size: 1rem;
+  }
+}
