@@ -51,7 +51,7 @@
 
                                     <div class="text-center">
                                         <h4 class="mb-3">Sign Up</h4>
-                                        <a href="{{ route('register') }}" class="button button-rounded bg-primary w-100">BCIO Member
+                                        <a href="{{ route('bcio-register') }}" class="button button-rounded bg-primary w-100">BCIO Member
                                             Registration</a>
                                         <p class="my-2">or</p>
                                         <a href="{{ route('register') }}" class="button button-rounded bg-bcpn w-100">BCPN User

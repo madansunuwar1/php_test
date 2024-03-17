@@ -2,40 +2,169 @@
 
 namespace App\Http\Controllers;
 
-use App\Http\Requests\ProfileUpdateRequest;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Bcio;
+use App\Models\Bcpn;
+use Illuminate\View\View;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Redirect;
-use Illuminate\View\View;
+use App\Http\Requests\ProfileUpdateRequest;
+use Symfony\Component\HttpKernel\Profiler\Profile;
 
 class ProfileController extends Controller
 {
+    public function index()
+    {
+        $authUser = auth()->user();
+        $roles = $authUser->role;
+       
+            // Assuming you want to get the id of the first role in the collection
+            $roleId = $roles->first()->id;
+        if ($roleId == '2') {
+            $profile = Bcio::where('email', $authUser->email)->first();
+            return view('profile.bcio', compact('profile'));
+        } elseif ($roleId == '3') {
+            $profile = Bcpn::where('email', $authUser->email)->first();
+            return view('profile.index', compact('profile'));
+        } else {
+            // Handle other roles or default to Bcio if needed
+            $profile = Bcio::where('email', $authUser->email)->first();
+            return view('profile.index', compact('profile'));
+        }
+
+        // $profile = Bcio::where('user_id', Auth::user()->id)->first();
+       
+    }
     /**
      * Display the user's profile form.
      */
     public function edit(Request $request): View
     {
-        return view('profile.edit', [
-            'user' => $request->user(),
-        ]);
+        $authUser = auth()->user();
+        $roles = $authUser->role;
+       
+            // Assuming you want to get the id of the first role in the collection
+            $roleId = $roles->first()->id;
+        if ($roleId == '2') {
+            $profile = Bcio::where('email', $authUser->email)->first();
+            return view('profile.bcio-edit', compact('profile'));
+        } elseif ($roleId == '3') {
+            $profile = Bcpn::where('email', $authUser->email)->first();
+            return view('profile.bcpn-edit', compact('profile'));
+        } else {
+            // Handle other roles or default to Bcio if needed
+            $profile = Bcio::where('email', $authUser->email)->first();
+            return view('profile.index', compact('profile'));
+        }
+        
+        $profile = Bcio::where('id', '1')->first();
+        return view('profile.e', compact('profile'));
     }
 
     /**
      * Update the user's profile information.
      */
-    public function update(ProfileUpdateRequest $request): RedirectResponse
-    {
-        $request->user()->fill($request->validated());
+    public function update(Request $request)
+    {  
+        $user = $request->user();
+        
+   
+        $roles = $user->role;
 
-        if ($request->user()->isDirty('email')) {
-            $request->user()->email_verified_at = null;
+            // Assuming you want to get the id of the first role in the collection
+            $roleId = $roles->first()->id;
+        if ($roleId == '2') {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'club_name' => 'required|string|max:255',
+                'country' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'contact' => 'required|string|max:255',
+                'position' => 'required|string|max:255',
+                'date' => 'string|max:255|nullable',
+                'personal_email' => 'string|email|max:255|nullable',
+                'status' => 'string|max:255|nullable',
+                'activities' => 'string|max:255|nullable',
+                'telephone' => 'string|max:255|nullable',
+                'fax' => 'string|max:255|nullable',
+                'president' => 'string|max:255|nullable',
+                'based_on' => 'string|max:255|nullable',
+                'established_on' => 'string|max:255|nullable',
+                'facebook' => 'string|max:255|nullable',
+                'instagram' => 'string|max:255|nullable',
+            ]);
+            $profile = Bcio::where('email', $user->email)->first();
+            $profile->update($validated);
+            return Redirect::route('profile.index')->with('status', 'profile-updated');
+        } elseif ($roleId == '3') {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'club_name' => 'required|string|max:255',
+                'date' => 'string|max:255',
+                'dob' => 'date|max:255',
+                'country' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'contact' => 'required|string|max:255',                
+                'gender' => 'string|email|max:255|nullable',
+                'current_country' => 'string|max:255|nullable',
+                'university' => 'string|max:255|nullable',
+                'faculty' => 'string|max:255|nullable',
+                'current_job' => 'string|max:255|nullable',
+                'other_job' => 'string|max:255|nullable',
+                'field_of_expertise' => 'string|max:255|nullable',
+                'area_of_interest' => 'string|max:255|nullable',
+                'hobbies' => 'string|max:255|nullable',
+                'intro' => 'string|max:255|nullable',
+                'status' => 'string|max:255|nullable',
+                'facebook' => 'string|max:255|nullable',
+                'linkedin' => 'string|max:255|nullable',
+            ]);
+
+            $profile = Bcpn::where('email', $user->email)->first();
+            $profile->update($validated);
+            return Redirect::route('profile.index')->with('status', 'profile-updated');
+        } else {
+            $validated = $request->validate([
+                'name' => 'required|string|max:255',
+                'club_name' => 'required|string|max:255',
+                'country' => 'required|string|max:255',
+                'email' => 'required|string|email|max:255',
+                'contact' => 'required|string|max:255',
+            ]);
+            // Handle other roles or default to Bcio if needed
+            $profile = Bcio::where('email', $user->email)->first();
+            $profile->update($validated);
+            return Redirect::route('profile.index')->with('status', 'profile-updated');
         }
-
-        $request->user()->save();
-
-        return Redirect::route('profile.edit')->with('status', 'profile-updated');
     }
+    public function bcpnUpdate(Request $request)
+    {      
+        $validated = $request->validate([
+            'name' => 'required|string|max:255',
+            'club_name' => 'required|string|max:255',
+            'country' => 'required|string|max:255',
+            'email' => 'required|string|email|max:255',
+            'contact' => 'required|string|max:255',
+            'position' => 'required|string|max:255',
+            'date' => 'string|max:255|nullable',
+            'personal_email' => 'string|email|max:255|nullable',
+            'status' => 'string|max:255|nullable',
+            'activities' => 'string|max:255|nullable',
+            'telephone' => 'string|max:255|nullable',
+            'fax' => 'string|max:255|nullable',
+            'president' => 'string|max:255|nullable',
+            'based_on' => 'string|max:255|nullable',
+            'established_on' => 'string|max:255|nullable',
+            'facebook' => 'string|max:255|nullable',
+            'instagram' => 'string|max:255|nullable',
+        ]);
+        $authUser = auth()->user();
+            $profile = Bcpn::where('email', $authUser->email)->first();
+            $profile->update($validated);
+            return Redirect::route('profile.index')->with('status', 'profile-updated');
+    }
+
 
     /**
      * Delete the user's account.

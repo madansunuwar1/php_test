@@ -169,8 +169,8 @@
                                             led by the designated project leads.
                                         </p>
                                         <div class="text-center text-md-end">
-                                            <a href="#" class="button mt-4 mx-2">View <i
-                                                    class="bi-chevron-bar-right"></i></a>
+                                        <a href="news" class="button mt-4 mx-2">View <i class="bi-chevron-bar-right"></i></a>
+
                                         </div>
                                     </div>
                                 </div>
@@ -267,7 +267,7 @@
                                             <p>Founder President: Stephanie Tan</p>
                                         </li>
                                     </ul>
-                                    <a href="#" class="button w-100 mx-0">view more detail <i
+                                    <a href="bridge" class="button w-100 mx-0">view more detail <i
                                             class="bi-chevron-bar-right"></i></a>
                                 </div>
                             </div>
@@ -380,7 +380,7 @@
                                                 </div>
                                             </div>
                                         </div>
-                                        <a href="#" class="button w-100">Read More</a>
+                                        <a href="activity" class="button w-100">Read More</a>
                                     </div>
                                 </div>
                             </div>
@@ -506,7 +506,7 @@
                                             led by the designated project leads.
                                         </p>
                                         <div class="text-center text-md-end">
-                                            <a href="#" class="button mt-4 mx-2">View <i
+                                            <a href="bcpn" class="button mt-4 mx-2">View <i
                                                     class="bi-chevron-bar-right"></i></a>
                                         </div>
                                     </div>
@@ -650,7 +650,7 @@
                                                 class="d-flex flex-column flex-md-row justify-content-md-between align-items-md-center">
                                                 <div class="entry-title title-sm bg-primary py-2 px-3">
                                                     <h5 class="mb-0">
-                                                        <a href="#" class="text-white">Inventore voluptates
+                                                        <a href="bcpnP" class="text-white">Inventore voluptates
                                                         </a>
                                                     </h5>
                                                 </div>
@@ -869,7 +869,7 @@
                                 <div class="entry event imagescalein">
                                     <div class="grid-inner row g-0 rounded p-2">
                                         <div class="col-lg-3 mb-lg-0">
-                                            <a href="#" class="entry-image overflow-hidden h-100">
+                                            <a href="bcpnP" class="entry-image overflow-hidden h-100">
                                                 <img src="images/events/thumbs/1.jpg"
                                                     alt="Inventore voluptates velit totam ipsa tenetur"
                                                     class="object-fit-cover w-100" />
