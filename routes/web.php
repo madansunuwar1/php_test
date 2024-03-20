@@ -47,9 +47,9 @@ Route::get('email', function () {
     return view('emails.verification-status');
 });
 
-Route::middleware('auth')->group(function () {
+Route::middleware('auth:sanctum')->group(function () {
 
-    Route::group(['prefix' => 'profile'], function (){
+    Route::group(['prefix' => 'profile'], function () {
         Route::get('/', [ProfileController::class, 'index'])->name('profile.index');
         Route::get('/edit', [ProfileController::class, 'edit'])->name('profile.edit');
         Route::delete('/delete', [ProfileController::class, 'destroy'])->name('profile.destroy');
@@ -59,20 +59,21 @@ Route::middleware('auth')->group(function () {
 
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
-    Route::group(['middleware' => ['role:admin'], 'prefix' => 'role'], function () {
-        Route::get('/', [RoleController::class, 'index'])->name('role.index');
-        Route::get('/create', [RoleController::class, 'create'])->name('role.create');
-        Route::post('/store', [RoleController::class, 'store'])->name('role.store');
-        Route::get('/edit/{role}', [RoleController::class, 'edit'])->name('role.edit');
-        Route::get('/destroy', [RoleController::class, 'destroy'])->name('role.destroy');
-        Route::put('/update/{role}', [RoleController::class, 'update'])->name('role.update');
-    });
-
-    Route::group(['middleware' => ['role:admin'], 'prefix' => 'user'], function () {
-        Route::get('/', [UserController::class, 'index'])->name('user.index');
-        Route::get('/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
-        Route::put('/update/{user}', [UserController::class, 'update'])->name('user.update');
-        Route::get('/destroy', [UserController::class, 'destroy'])->name('user.destroy');
+    Route::middleware(['role:admin'])->group(function () {
+        Route::group(['prefix' => 'user'], function () {
+            Route::get('/', [UserController::class, 'index'])->name('user.index');
+            Route::get('/edit/{user}', [UserController::class, 'edit'])->name('user.edit');
+            Route::put('/update/{user}', [UserController::class, 'update'])->name('user.update');
+            Route::get('/destroy', [UserController::class, 'destroy'])->name('user.destroy');
+        });
+        Route::group(['prefix' => 'role'], function () {
+            Route::get('/', [RoleController::class, 'index'])->name('role.index');
+            Route::get('/create', [RoleController::class, 'create'])->name('role.create');
+            Route::post('/store', [RoleController::class, 'store'])->name('role.store');
+            Route::get('/edit/{role}', [RoleController::class, 'edit'])->name('role.edit');
+            Route::get('/destroy', [RoleController::class, 'destroy'])->name('role.destroy');
+            Route::put('/update/{role}', [RoleController::class, 'update'])->name('role.update');
+        });
     });
 
     Route::middleware(['role:bcio'])->group(function () {

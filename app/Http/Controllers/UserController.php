@@ -11,8 +11,6 @@ class UserController extends Controller
     public function index()
     {
         $users = User::with('role')->get();
-
-
         return view('user.index', compact('users'));
     }
     public function edit(User $user)
@@ -33,7 +31,6 @@ class UserController extends Controller
         ]);
         if ($request->role) {
             $user->syncRoles($request->role);
-
         }
         return redirect()->route('user.index');
     }

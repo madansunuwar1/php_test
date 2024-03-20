@@ -29,9 +29,12 @@
     <link rel="stylesheet" href="{{asset('plugins/summernote/summernote-bs4.min.css')}}">
 </head>
 
-<body class="hold-transition sidebar-mini">
-<div id="preloader"></div>
+<body class="hold-transition sidebar-mini layout-fixed">
 <div class="wrapper">
+    <!-- Preloader -->
+    <div class="preloader flex-column justify-content-center align-items-center">
+        <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+    </div>
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
         <!-- Left navbar links -->
@@ -49,7 +52,7 @@
                 </a>
             </li>
             <li class="nav-item">
-                <a class="nav-link" data-widget="control-sidebar" data-slide="true" href="#" role="button">
+                <a class="nav-link" data-widget="control-sidebar" data-controlsidebar-slide="true" href="#" role="button">
                     <i class="fas fa-th-large"></i>
                 </a>
             </li>
@@ -61,73 +64,34 @@
     <aside class="main-sidebar sidebar-dark-primary elevation-4">
         <!-- Brand Logo -->
         <a href="/dashboard" class="brand-link d-flex align-items-center">
-            <img src="{{asset('images/favicon.svg')}}" alt="AdminLTE Logo" class="brand-image elevation-3" style="opacity: .8">
+            <img src="{{asset('images/favicon.svg')}}" alt="BCIO" class="brand-image elevation-3" style="opacity: .8">
             <span class="brand-text small font-weight-light">BCIO</span>
         </a>
 
         <!-- Sidebar -->
         <div class="sidebar">
+
+            <!-- Sidebar user panel (optional) -->
+
+            <div class="user-panel mt-3 pb-3 mb-3 d-flex">
+                {{--<div class="image">
+                    <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
+                </div>--}}
+                <div class="info">
+                    <a href="{{ route('profile.index') }}" class="nav-link">Alexander Pierce</a>
+                </div>
+            </div>
+
             <!-- Sidebar Menu -->
             <nav class="mt-2">
                 <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-item">
-                        <a href="{{ route('user.index') }}" class="nav-link">
-                            <i class="nav-icon fa fa-users"></i>
-                            <p>User</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('role.index') }}" class="nav-link">
-                            <i class="nav-icon fa fa-key"></i>
-                            <p>Role</p>
-                        </a>
-                    </li>
-
-                    </li>
-                </ul>
-                <ul class="nav nav-pills nav-sidebar flex-column" data-widget="treeview" role="menu" data-accordion="false">
-                    <li class="nav-header">
-                        Bcio_admin
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('verification.bcio.index') }}" class="nav-link">
-                            <i class="nav-icon far fa-user "></i>
-                            <p>
-                                Bcio member verification
-                            </p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('verification.bcpn.index') }}" class="nav-link">
-                            <i class="nav-icon fa fa-list"></i>
-                            <p>Bcpn member verification</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('profile.index') }}" class="nav-link">
-                            <i class="nav-icon fa fa-list"></i>
-                            <p>profile</p>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a href="{{ route('profile.edit') }}" class="nav-link">
-                            <i class="nav-icon fa fa-list"></i>
-                            <p>profile edit</p>
-                        </a>
-                    </li>
-                    </li>
+                    @include('layouts.menu')
                 </ul>
             </nav>
             <!-- /.sidebar-menu -->
         </div>
         <!-- /.sidebar -->
     </aside>
-
-    <!-- Control Sidebar -->
-    <aside class="control-sidebar control-sidebar-dark">
-        <!-- Control sidebar content goes here -->
-    </aside>
-    <!-- /.control-sidebar -->
 
     @yield('content')
 
@@ -139,6 +103,11 @@
             <b>Version</b> 3.2.0
         </div>
     </footer>
+    <!-- Control Sidebar -->
+    <aside class="control-sidebar control-sidebar-dark">
+        <!-- Control sidebar content goes here -->
+    </aside>
+    <!-- /.control-sidebar -->
 </div>
 <!-- ./wrapper -->
 

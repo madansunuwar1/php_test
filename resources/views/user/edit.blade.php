@@ -23,17 +23,25 @@
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
                                     </div>
-                                    <div class="mb-3">
-    <label for="role" class="form-label">Role</label>
-    <select name="role" id="role" class="form-control">
-        @foreach($roles as $role)
-            <option value="{{ $role->id }}" {{ old('role_id', $roleId) == $role->id ? 'selected' : '' }}>
-                {{ ucwords(str_replace('_', ' ', $role->name)) }}
-            </option>
-        @endforeach
-    </select>
-</div>
-
+                                    @if($user->role[0]->name == 'admin')
+                                        <div class="mb-3">
+                                            <label for="admin" class="form-label">Role</label>
+                                            <select id="admin" class="form-control" disabled>
+                                                <option value="{{$user->role[0]->id}}">{{$user->role[0]->nameZZ}}</option>
+                                            </select>
+                                        </div>
+                                    @else
+                                        <div class="mb-3">
+                                            <label for="role" class="form-label">Role</label>
+                                            <select name="role" id="role" class="form-control">
+                                                @foreach($roles as $role)
+                                                    <option value="{{ $role->id }}" {{ old('role_id', $roleId) == $role->id ? 'selected' : '' }}>
+                                                        {{ ucwords(str_replace('_', ' ', $role->name)) }}
+                                                    </option>
+                                                @endforeach
+                                            </select>
+                                        </div>
+                                    @endif
 
 
                                     <!-- Add other fields as needed -->
