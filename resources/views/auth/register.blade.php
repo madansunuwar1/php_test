@@ -40,7 +40,7 @@
                                                 <input type="date" id="date-of-birth" name="dob"
                                                     value="" class="form-control not-dark">
                                             </div>
-                                            
+
                                             <div class="col-12 form-group">
                                                 <label for="register-form-phone">Contact Number:</label>
                                                 <input type="text" id="register-form-phone" name="contact"
@@ -49,7 +49,7 @@
                                             </div>
                                             <div class="col-12 form-group">
                                                 <label for="register-form-email">Country:</label>
-                                                <input type="email" id="register-form-email" name="country"
+                                                <input type="text" id="register-form-email" name="country"
                                                     value="" class="form-control not-dark">
                                             </div>
 

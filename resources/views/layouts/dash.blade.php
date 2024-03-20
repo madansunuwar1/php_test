@@ -33,7 +33,7 @@
 <div class="wrapper">
     <!-- Preloader -->
     <div class="preloader flex-column justify-content-center align-items-center">
-        <img class="animation__shake" src="dist/img/AdminLTELogo.png" alt="AdminLTELogo" height="60" width="60">
+        <img class="animation__shake" src="{{asset('images/favicon.svg')}}" alt="BCIO" width="100px">
     </div>
     <!-- Navbar -->
     <nav class="main-header navbar navbar-expand navbar-white navbar-light">
@@ -78,7 +78,7 @@
                     <img src="dist/img/user2-160x160.jpg" class="img-circle elevation-2" alt="User Image">
                 </div>--}}
                 <div class="info">
-                    <a href="{{ route('profile.index') }}" class="nav-link">Alexander Pierce</a>
+                    <a href="{{ route('profile.index') }}" class="nav-link">{{ Auth::user()->name}}</a>
                 </div>
             </div>
 

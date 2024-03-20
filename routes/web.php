@@ -78,14 +78,15 @@ Route::middleware('auth:sanctum')->group(function () {
 
     Route::middleware(['role:bcio'])->group(function () {
         Route::get('verification/bcio', [BcioVerificationController::class, 'index'])->name('verification.bcio.index');
-        Route::put('/update-status-bcio/{id}', [BcioVerificationController::class, 'updateStatus'])->name('verification.bcio.update');
     });
 
     Route::middleware(['role:bcpn'])->group(function () {
         Route::get('verification/bcpn', [BcpnVerificationController::class, 'index'])->name('verification.bcpn.index');
-        Route::put('bcpn/update', [ProfileController::class, 'update'])->name('profile.update');
-        Route::put('/update-status/{id}', [BcpnVerificationController::class, 'updateStatus'])->name('verification.bcpn.update');
     });
+
+    Route::put('/update-status-bcio/{id}', [BcioVerificationController::class, 'updateStatus'])->name('verification.bcio.update');
+    Route::put('bcpn/update', [ProfileController::class, 'update'])->name('profile.update');
+    Route::put('/update-status/{id}', [BcpnVerificationController::class, 'updateStatus'])->name('verification.bcpn.update');
 
 });
 require __DIR__ . '/auth.php';
