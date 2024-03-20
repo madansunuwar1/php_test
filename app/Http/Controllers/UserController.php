@@ -17,7 +17,7 @@ class UserController extends Controller
     }
     public function edit(User $user)
     {
-        $roles = Role::select('id', 'name')->where('id', '<>', 1)->get();
+        $roles = Role::select(['id', 'name'])->where('id', '<>', 1)->get();
         return view('user.edit', [
             'title' => 'Edit User',
             'roles' => $roles,
@@ -33,7 +33,7 @@ class UserController extends Controller
         ]);
         if ($request->role) {
             $user->syncRoles($request->role);
-          
+
         }
         return redirect()->route('user.index');
     }

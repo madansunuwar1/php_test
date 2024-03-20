@@ -10,7 +10,7 @@
         <div class="card card-widget widget-user">
           <!-- Add the bg color to the header using any of the bg-* classes -->
           <div class="widget-user-header bg-info">
-            <h3 class="widget-user-username">{{$profile->name}}</h3>
+            <h3 class="widget-user-username">{{$profile?->name}}</h3>
             <h5 class="widget-user-desc">BCPN HEAD</h5>
           </div>
           <div class="widget-user-image">
@@ -59,14 +59,14 @@
       <strong><i class="fas fa-user mr-1"></i>Name</strong>
 
       <p class="text-muted">
-      {{$profile->name}}
+      {{$profile?->name}}
       </p>
 
       <hr>
 
       <strong><i class="fas fa-map-marker-alt mr-1"></i>Country</strong>
 
-      <p class="text-muted">{{$profile->country}}</p>
+      <p class="text-muted">{{$profile?->country}}</p>
 
       <hr>
 
@@ -84,12 +84,12 @@
 
       <strong><i class="fas fa-phone mr-1"></i>phone</strong>
 
-      <p class="text-muted">{{$profile->contact}}</p>
+      <p class="text-muted">{{$profile?->contact}}</p>
       <hr>
 
       <strong><i class="fas fa-envelope mr-1"></i>Email</strong>
 
-      <p class="text-muted">{{$profile->email}}</p>
+      <p class="text-muted">{{$profile?->email}}</p>
       <hr>
 
       <strong><i class="far fa-building-columns mr-1"></i>University</strong>
@@ -100,7 +100,7 @@
       <strong><i class="fas fa-link mr-1"></i>Links</strong>
 
       <p class="text-muted"><span><i class="fab fa-facebook mr-3"></i></span><span><i class="fab fa-linkedin mr-3"></i></span><span><i class="fab fa-line mr-3"></i></span></p>
-      <a href="{{route('profile.edit', $profile->email)}}" class="btn btn-primary">Edit Profile</a>
+      <a href="{{route('profile.edit', $profile?->email)}}" class="btn btn-primary">Edit Profile</a>
     </div>
     <!-- /.card-body -->
   </div>
