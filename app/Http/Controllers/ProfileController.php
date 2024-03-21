@@ -116,7 +116,7 @@ class ProfileController extends Controller
                 $profile->update($request->validated());
                 break;
         }
-        return Redirect::route('profile.index')->with('profile');
+        return Redirect::route('profile.index')->with('status','profile');
 
 
         /*$roles = $user->role;

@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>BCIO</title>
+    <title>BCIO | {{$title??''}}</title>
 
     <!-- Google Font: Source Sans Pro -->
     <link rel="stylesheet"
@@ -147,15 +147,28 @@
     {{--<script src="{{ asset('dist/js/pages/dashboard2.js') }}"></script>
     <script src="{{ asset('dist/js/pages/dashboard3.js') }}"></script>--}}
 @endif
+<!-- jquery-validation -->
+<script src="{{ asset('plugins/jquery-validation/jquery.validate.min.js') }}"></script>
+<script src="{{ asset('plugins/jquery-validation/additional-methods.min.js') }}"></script>
 <!-- AdminLTE -->
 <script src="{{ asset('dist/js/adminlte.js') }}"></script>
+<!-- Summernote -->
+<script src="{{asset('plugins/summernote/summernote-bs4.min.js')}}"></script>
+<!-- CodeMirror -->
+<script src="{{asset('plugins/codemirror/codemirror.js')}}"></script>
+<script src="{{asset('plugins/codemirror/mode/css/css.js')}}"></script>
+<script src="{{asset('plugins/codemirror/mode/xml/xml.js')}}"></script>
+<script src="{{asset('plugins/codemirror/mode/htmlmixed/htmlmixed.js')}}"></script>
 <!-- AdminLTE for demo purposes -->
 <script src="{{asset('dist/js/demo.js')}}"></script>
+<script src="{{asset('dist/js/custom.js')}}"></script>
 <script>
-    var loader = document.getElementById("preloader");
-    window.addEventListener("load", function () {
-        loader.style.display = "none";
-    })
+    const loader = document.getElementById("preloader");
+    if(loader){
+        window.addEventListener("load", function () {
+            loader.style.display = "none";
+        })
+    }
 </script>
 
 </body>

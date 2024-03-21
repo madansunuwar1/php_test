@@ -12,14 +12,14 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 
 class User extends Authenticatable
 {
-    use HasApiTokens, HasFactory, HasRoles,Notifiable;
+    use HasApiTokens, HasFactory, HasRoles, Notifiable;
 
     /**
      * The attributes that are mass assignable.
      *
      * @var array<int, string>
      */
-    protected $guarded = [];    
+    protected $guarded = [];
     /**
      * The attributes that should be hidden for serialization.
      *
@@ -39,19 +39,21 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
     public function role()
     {
         return $this->belongsToMany(Role::class, 'model_has_roles', 'model_id', 'role_id');
     }
-    // In the User model
-public function bcioProfile()
-{
-    return $this->hasOne(Bcio::class, 'email', 'email');
-}
 
-public function bcpnProfile()
-{
-    return $this->hasOne(Bcpn::class, 'email', 'email');
-}
+    // In the User model
+    public function bcioProfile()
+    {
+        return $this->hasOne(Bcio::class, 'email', 'email');
+    }
+
+    public function bcpnProfile()
+    {
+        return $this->hasOne(Bcpn::class, 'email', 'email');
+    }
 
 }

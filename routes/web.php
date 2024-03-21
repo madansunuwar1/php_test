@@ -3,6 +3,8 @@
 use App\Http\Controllers\Api\PermissionAllocationController;
 use App\Http\Controllers\Api\PermissionsController;
 use App\Http\Controllers\DashboardController;
+use App\Http\Controllers\Front\HomeController;
+use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
 use App\Http\Controllers\UserController;
@@ -22,9 +24,7 @@ use App\Http\Controllers\Verification\bcpn\VerificationController as BcpnVerific
 |
 */
 
-Route::get('/', function () {
-    return view('front.index');
-});
+Route::resource('/', HomeController::class);
 Route::get('blog', function () {
     return view('blog.index');
 });
@@ -57,8 +57,6 @@ Route::middleware('auth:sanctum')->group(function () {
         //Route::put('bcio/{profile}/update', [ProfileController::class, 'update'])->name('profile.update');
     });
 
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-
     Route::middleware(['role:admin'])->group(function () {
         Route::group(['prefix' => 'user'], function () {
             Route::get('/', [UserController::class, 'index'])->name('user.index');
@@ -84,9 +82,12 @@ Route::middleware('auth:sanctum')->group(function () {
         Route::get('verification/bcpn', [BcpnVerificationController::class, 'index'])->name('verification.bcpn.index');
     });
 
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     Route::put('/update-status-bcio/{id}', [BcioVerificationController::class, 'updateStatus'])->name('verification.bcio.update');
     Route::put('bcpn/update', [ProfileController::class, 'update'])->name('profile.update');
     Route::put('/update-status/{id}', [BcpnVerificationController::class, 'updateStatus'])->name('verification.bcpn.update');
+
+    Route::resource('slider', SliderController::class);
 
 });
 require __DIR__ . '/auth.php';
