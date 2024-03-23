@@ -27,7 +27,7 @@
                                         <div class="mb-3">
                                             <label for="admin" class="form-label">Role</label>
                                             <select id="admin" class="form-control" disabled>
-                                                <option value="{{$user->role[0]->id}}">{{$user->role[0]->nameZZ}}</option>
+                                                <option value="{{$user->role[0]->id}}">{{$user->role[0]->name}}</option>
                                             </select>
                                         </div>
                                     @else

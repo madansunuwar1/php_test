@@ -2,17 +2,21 @@
 
 namespace App\Http\Controllers;
 
+use App\Helper\AdminMenu\getSectionSettings;
+use App\Helper\Helper;
 use App\Http\Requests\CreateSliderRequest;
 use App\Models\Slider;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Storage;
-use Illuminate\Support\Facades\Validator;
 
 class SliderController extends Controller
 {
+    /*public function __construct()
+    {
+        $this->authorizeResource(Slider::class, 'slider');
+    }*/
     public function index()
     {
-        $sliders = Slider::paginate(20);
+        $sliders = Auth()->user()->slider;
         $title = 'Slider';
         return view('slider.index', compact('sliders', 'title'));
     }
@@ -24,20 +28,16 @@ class SliderController extends Controller
         ]);
     }
 
-    protected function uploadImage($request)
-    {
-        if ($request->hasFile('image')) {
-            $image = $request->file('image');
-            return Storage::disk(env("FILESYSTEM_UPLOADS_DISK", "uploads"))->put("/slider", $image);
-        }
-        return null;
-    }
-
     public function store(CreateSliderRequest $request)
     {
-        $path = $this->uploadImage($request);
+        $path = Helper::uploadImage('image');
         Slider::create(array_merge($request->validated(), ['image' => $path, 'user_id'=>\Auth::id()]));
         return redirect('slider')->with('status', 'Slider added successfully.');
+    }
+
+    public function show()
+    {
+        return $this->index();
     }
 
     public function edit(Slider $slider)
@@ -50,7 +50,7 @@ class SliderController extends Controller
 
     public function update(CreateSliderRequest $request, Slider $slider)
     {
-        $path = $this->uploadImage($request);
+        $path = Helper::uploadImage('image');
         $data = $request->validated();
         if ($path) {
             $data['image'] = $path;

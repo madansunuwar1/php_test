@@ -1,8 +1,9 @@
 (function ($, d) {
     $(d).ready(function () {
         // bootstrap WYSIHTML5 - text editor
+        const editorHeight = $('.editor').attr('rows') ?? 150;
         $('.editor').summernote({
-            height: 150,   //set editable area's height
+            height: editorHeight,   //set editable area's height
             codemirror: { // codemirror options
                 theme: 'monokai'
             }

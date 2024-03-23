@@ -1,4 +1,4 @@
-@php use App\Helper\Constant; @endphp
+@php use App\Helper\Constant;use App\Helper\Helper; @endphp
 @extends('layouts.dash')
 
 @section('content')
@@ -13,7 +13,7 @@
                         <div class="card mt-3">
                             <div class="card-header">
                                 <section class="content">
-                                    <h1>SLIDER</h1>
+                                    <h1>{{ucwords(implode(' ', explode('-', Helper::getCurrentURL(1))))}} {{ucwords(implode(' ', explode('-', Helper::getCurrentURL(2))))}}</h1>
                                     <div class="row">
                                         <div class="col-md-3">
                                             <form action="">
@@ -30,7 +30,8 @@
                                     </div>
                                 </section>
                                 <div class="mt-3">
-                                    <a href="{{url('slider/create')}}" class="btn btn-primary width-100">Add Slider</a>
+                                    <a href="{{url(Helper::getCurrentURL(1).'/'.Helper::getCurrentURL(2).'/create')}}" class="btn btn-primary width-100">Add Section</a>
+                                    <a href="{{url(Helper::getCurrentURL(1))}}" class="btn btn-danger width-100">Back</a>
                                 </div>
                             </div>
                             <!-- /.card-header -->
@@ -46,22 +47,22 @@
                                     </tr>
                                     </thead>
                                     <tbody>
-                                    @foreach ($sliders as $slider )
-                                        <tr>
-                                            <td>{{ $slider?->title }}</td>
-                                            <td>{{ Str::words(strip_tags($slider?->description), 10) }}</td>
-                                            <td><img src="{{asset('storage/uploads/'.$slider->image)}}" alt="" width="50px"></td>
-                                            <td>{{Constant::status($slider->status)}}</td>
-                                            <td>
-                                                <a href="{{ route('slider.edit', $slider->id) }}" class="btn btn-primary">Edit</a>
-                                                <form action="{{ route('slider.destroy', $slider) }}" method="POST" style="display: inline;">
-                                                    @csrf
-                                                    @method('DELETE')
-                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                                </form>
-                                            </td>
-                                        </tr>
-                                    @endforeach
+                                    {{-- @foreach ($sliders as $slider )
+                                         <tr>
+                                             <td>{{ $slider?->title }}</td>
+                                             <td>{{ Str::words(strip_tags($slider?->description), 10) }}</td>
+                                             <td><img src="{{asset('storage/uploads/'.$slider->image)}}" alt="" width="50px"></td>
+                                             <td>{{Constant::status($slider->status)}}</td>
+                                             <td>
+                                                 <a href="{{ route('slider.edit', $slider->id) }}" class="btn btn-primary">Edit</a>
+                                                 <form action="{{ route('slider.destroy', $slider) }}" method="POST" style="display: inline;">
+                                                     @csrf
+                                                     @method('DELETE')
+                                                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                                 </form>
+                                             </td>
+                                         </tr>
+                                     @endforeach--}}
                                 </table>
                             </div>
                             <!-- /.card-body -->

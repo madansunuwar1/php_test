@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\verification\bcpn;
 
 use App\Models\Bcpn;
+use App\Models\Role;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
 use App\Mail\VerificationStatus;
@@ -17,7 +18,7 @@ class VerificationController extends Controller
      */
     public function index()
     {
-       
+
         $bcpns = Bcpn::all();
         return view('verification.bcpn.index', compact('bcpns'));
     }
@@ -72,15 +73,18 @@ class VerificationController extends Controller
             Bcpn::where('id', $itemId)->update([
                 'status' => 'verified',
             ]);
-            User::create([
+            $user = User::create([
                 'name' => Bcpn::find($itemId)->name,
                 'email' => Bcpn::find($itemId)->email,
+                'role_id' => Role::IS_BCPN_MEMBER,
                 'password' => bcrypt($randomPassword),
             ]);
-    
+
+            $user->assignRole('bcpn_member');
+
             // Retrieve the updated Bcio instance
             $bcpn = Bcpn::find($itemId);
-    
+
             // Send the email with the password
             Mail::to($bcpn->email)->send(new VerificationStatus('verified', $randomPassword, $bcpn->email));
         } elseif ($status == 'deny') {

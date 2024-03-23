@@ -1,14 +1,12 @@
-{{--<li>
-    @php
-    $user = Auth::user();
-    $user->assignRole('admin');
-    $user->removeRole('bcio');
-    $user->save();
-    echo '<pre>';
-    print_r($user->role);
-    exit;
-        @endphp
-</li>--}}
+{{--@php
+$user = Auth::user();
+$user->assignRole('admin');
+//$user->removeRole('bcio');
+$user->save();
+echo '<pre>';
+print_r($user->role);
+exit;
+    @endphp--}}
 
 <li class="nav-item menu-open">
     <a href="{{ url('dashboard') }}" class="nav-link">
@@ -54,57 +52,29 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="{{url('slider')}}" class="nav-link active">
-                <i class="fas fa-images nav-icon"></i>
-                <p>Banner Slider</p>
+            <a href="{{url('slider')}}" class="nav-link">
+                <i class="far fa-circle nav-icon"></i>
+                <p>Slider</p>
             </a>
         </li>
+        @php $menus = App\Helper\Helper::getSectionSettings('home') @endphp
+        @if($menus)
+            @foreach($menus as $menu)
+                @if($menu->section_slug == 'home-introduction' && !Auth()->user()->hasRole('admin'))
+                    @continue
+                @endif
+                <li class="nav-item">
+                    <a href="{{url($menu->section_slug)}}" class="nav-link{{str_contains(url()->current(), $menu->section_slug)?' active':''}}">
+                        <i class="nav-icon {{$menu->icon?:'far fa-circle'}}"></i>
+                        <p>{{$menu->sub_title?$menu->sub_title:$menu->section_title}}</p>
+                    </a>
+                </li>
+            @endforeach
+        @endif
         <li class="nav-item">
-            <a href="{{url('home-introduction')}}" class="nav-link">
-                <i class="far fa-address-card nav-icon"></i>
-                <p>Introduction Section</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('admin-news')}}" class="nav-link">
-                <i class="far fa-newspaper nav-icon"></i>
-                <p>Admin News Section</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('home-club-section')}}" class="nav-link">
-                <i class="fas fa-user-secret nav-icon"></i>
-                <p>Bridge Club Section</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('bcio-news')}}" class="nav-link">
-                <i class="far fa-newspaper nav-icon"></i>
-                <p>Bridge Club Activity</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('bcpn-news')}}" class="nav-link">
-                <i class="far fa-newspaper nav-icon"></i>
-                <p>BCPN News</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('counters')}}" class="nav-link">
-                <i class="fas fa-futbol nav-icon"></i>
-                <p>Counter Section</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('home-members')}}" class="nav-link">
-                <i class="fas fa-users nav-icon"></i>
-                <p>Member Section</p>
-            </a>
-        </li>
-        <li class="nav-item">
-            <a href="{{url('logos')}}" class="nav-link">
-                <i class="fas fa-box nav-icon"></i>
-                <p>Logo Section</p>
+            <a href="{{url('section-settings')}}" class="nav-link">
+                <i class="fas fa-cog nav-icon"></i>
+                <p>Section Settings</p>
             </a>
         </li>
     </ul>

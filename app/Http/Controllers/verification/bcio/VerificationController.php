@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\verification\bcio;
 
 use App\Models\Bcio;
+use App\Models\Role;
 use App\Models\User;
 use Illuminate\Support\Str;
 use Illuminate\Http\Request;
@@ -69,18 +70,21 @@ class VerificationController extends Controller
             Bcio::where('id', $itemId)->update([
                 'status' => 'verified',
             ]);
-            User::create([
+            $user = User::create([
                 'name' => Bcio::find($itemId)->name,
                 'email' => Bcio::find($itemId)->email,
+                'role_id' => Role::IS_BCIO_MEMBER,
                 'password' => bcrypt($randomPassword),
             ]);
 
+            $user->assignRole('bcio_member');
+
             $bcio = Bcio::find($itemId);
-    
+
             Mail::to($bcio->email)->send(new VerificationStatus('verified', $randomPassword, $bcio->email));
         } elseif ($status == 'deny') {
             Bcio::where('id', $itemId)->update(['status' => 'rejected']);
-            $bcio = Bcio::find($itemId); 
+            $bcio = Bcio::find($itemId);
             Mail::to($bcio->email)->send(new VerificationStatus('rejected'));
         }
         return redirect()->back()->with('success', 'Status updated successfully');

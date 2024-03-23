@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Helper;
 
 class Constant
 {
@@ -12,4 +12,5 @@ class Constant
         }
         return $status;
     }
+
 }

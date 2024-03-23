@@ -12,4 +12,8 @@ class Slider extends Model
 
     protected $fillable = ['title', 'description', 'image', 'user_id', 'status'];
 
+    public function user()
+    {
+        return $this->belongsTo(User::class);
+    }
 }

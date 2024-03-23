@@ -56,4 +56,9 @@ class User extends Authenticatable
         return $this->hasOne(Bcpn::class, 'email', 'email');
     }
 
+    public function slider()
+    {
+        return $this->hasMany(Slider::class);
+    }
+
 }

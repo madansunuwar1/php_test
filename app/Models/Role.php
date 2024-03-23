@@ -14,4 +14,6 @@ class Role extends Model
     public const IS_ADMIN = 1;
     public const IS_BCIO = 2;
     public const IS_BCPN = 3;
+    public const IS_BCIO_MEMBER = 4;
+    public const IS_BCPN_MEMBER = 5;
 }
