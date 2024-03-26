@@ -48,7 +48,8 @@
     $currentURL = \App\Helper\Helper::getCurrentURL();
     $liClass = '';
     $active = '';
-    if($currentURL == 'home'){
+    $activeAccess = ['home', 'slider'];
+    if(in_array($currentURL, $activeAccess)){
         $liClass = ' menu-open';
         $active = ' active';
     }
@@ -61,7 +62,7 @@
     </a>
     <ul class="nav nav-treeview">
         <li class="nav-item">
-            <a href="{{url('slider')}}" class="nav-link">
+            <a href="{{url('slider')}}" class="nav-link{{$currentURL=='slider'?' active':''}}">
                 <i class="far fa-circle nav-icon"></i>
                 <p>Slider</p>
             </a>
