@@ -13,7 +13,7 @@
                         <div class="card mt-3">
                             <div class="card-header">
                                 <section class="content">
-                                    <h1>{{ucwords(implode(' ', explode('-', Helper::getCurrentURL())))}}</h1>
+                                    <h1>{{ucwords(implode(' ', explode('-', Helper::getCurrentURL())))}} {{$section->section_title}}</h1>
                                     <div class="row">
                                         <div class="col-md-3">
                                             <form action="">
@@ -54,8 +54,11 @@
                                             <td>{{Helper::getUser($content->user_id)?->name}}</td>
                                             <td>{{$content->created_at->format('F j, Y g:i a')}}</td>
                                             <td>
-                                                <a href="{{ url(Helper::getCurrentURL().'/'.Helper::getCurrentURL(2).'/'.$content->id.'/edit') }}" class="btn btn-primary">Edit</a>
-                                                <form action="{{ url(Helper::getCurrentURL().'/'.Helper::getCurrentURL(2).'/'.$content->id.'/destroy') }}" method="POST" style="display: inline;">
+                                                @php
+                                                    $name = implode('_', explode('-', $section->section_slug));
+                                                @endphp
+                                                <a href="{{ route($name.'.edit', $content->id) }}" class="btn btn-primary">Edit</a>
+                                                <form action="{{ route($name.'.destroy', $content->id) }}" method="POST" style="display: inline;">
                                                     @csrf
                                                     @method('DELETE')
                                                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>

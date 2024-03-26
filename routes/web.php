@@ -113,7 +113,12 @@ Route::middleware('auth')->group(function () {
             if($setting->section_slug == 'home-introduction'){
                 $permission = 'CheckRole:admin';
             }
-            Route::resource('home/'.$setting->section_slug, PageContentController::class)->middleware($permission);
+            $name = implode('_', explode('-', $setting->section_slug));
+            Route::resource('home/'.$setting->section_slug, PageContentController::class)->middleware($permission)->names([
+                'edit' => "{$name}.edit",
+                'update' => "{$name}.update",
+                'destroy' => "{$name}.destroy"
+            ]);
         }
     }
 

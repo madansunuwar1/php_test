@@ -55,7 +55,7 @@
                                         @endif
                                     </div>
                                     <div class="form-group">
-                                        <label for="status">Minimal</label>
+                                        <label for="status">Status</label>
                                         <select id="status" name="status" class="form-control select2bs4" style="width: 100%">
                                             <option value="1" selected="selected">Active</option>
                                             <option value="0">Inactive</option>

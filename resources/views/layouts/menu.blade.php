@@ -44,8 +44,17 @@
         <p>Bcpn member verification</p>
     </a>
 </li>
-<li class="nav-item">
-    <a href="#" class="nav-link">
+@php
+    $currentURL = \App\Helper\Helper::getCurrentURL();
+    $liClass = '';
+    $active = '';
+    if($currentURL == 'home'){
+        $liClass = ' menu-open';
+        $active = ' active';
+    }
+@endphp
+<li class="nav-item{{$liClass}}">
+    <a href="#" class="nav-link{{$active}}">
         <i class="nav-icon fa fa-home"></i>
         <p>Home Page Settings</p>
         <i class="fas fa-angle-left right"></i>

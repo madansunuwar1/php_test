@@ -24,7 +24,7 @@ class CreateSectionContentRequest extends FormRequest
         $rules = [
             'title' => 'nullable',
             'content' => 'nullable',
-            'image' => 'nullable|mimes:jpg,jpeg,png|max:3048',
+            'image' => 'nullable|mimes:jpg,jpeg,png,svg|max:3048',
             'status' => 'nullable',
         ];
         return $rules;
