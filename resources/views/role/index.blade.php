@@ -40,7 +40,6 @@
                                         <table id="example2" class="table table-bordered table-hover">
                                             <thead>
                                             <tr>
-                                                <th>Id</th>
                                                 <th>Name</th>
                                                 <th>Action</th>
                                             </tr>
@@ -48,7 +47,6 @@
                                             <tbody>
                                             @foreach ($roles as $role )
                                                 <tr>
-                                                    <td>{{ $role->id }}</td>
                                                     <td>{{ $role->name }}</td>
                                                     <td>
                                                         <button class="btn btn-success"><a href="{{ route('role.edit', $role->id) }}">Edit</a></button>

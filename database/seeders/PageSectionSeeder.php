@@ -2,10 +2,11 @@
 
 namespace Database\Seeders;
 
+use App\Models\PageSection;
 use App\Models\SectionSetting;
 use Illuminate\Database\Seeder;
 
-class SectionSettingsSeeder extends Seeder
+class PageSectionSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,8 +15,8 @@ class SectionSettingsSeeder extends Seeder
     {
         $sections = [
             [
-                'page_id'=>null,
-                'page'=>'home',
+                'page_id'=>1,
+                'content_templates_id'=>2,
                 'section_title'=>'Introduction Section',
                 'sub_title'=>null,
                 'section_slug'=>'home-introduction',
@@ -26,8 +27,8 @@ class SectionSettingsSeeder extends Seeder
                 'icon'=>null,
             ],
             [
-                'page_id'=>null,
-                'page'=>'home',
+                'page_id'=>1,
+                'content_templates_id'=>3,
                 'section_title'=>'BCIO News',
                 'sub_title'=>null,
                 'section_slug'=>'admin-news',
@@ -38,8 +39,8 @@ class SectionSettingsSeeder extends Seeder
                 'icon'=>null,
             ],
             [
-                'page_id'=>null,
-                'page'=>'home',
+                'page_id'=>1,
+                'content_templates_id'=>4,
                 'section_title'=>'Bridge Club',
                 'sub_title'=>null,
                 'section_slug'=>'home-club-section',
@@ -50,8 +51,8 @@ class SectionSettingsSeeder extends Seeder
                 'icon'=>null,
             ],
             [
-                'page_id'=>null,
-                'page'=>'home',
+                'page_id'=>1,
+                'content_templates_id'=>3,
                 'section_title'=>'BRIDGE CLUB Activity Reports',
                 'sub_title'=>'BRIDGE CLUB Activity',
                 'section_slug'=>'bcio-news',
@@ -62,8 +63,8 @@ class SectionSettingsSeeder extends Seeder
                 'icon'=>null,
             ],
             [
-                'page_id'=>null,
-                'page'=>'home',
+                'page_id'=>1,
+                'content_templates_id'=>3,
                 'section_title'=>'BCPN News',
                 'sub_title'=>null,
                 'section_slug'=>'bcpn-news',
@@ -74,8 +75,8 @@ class SectionSettingsSeeder extends Seeder
                 'icon'=>null,
             ],
             [
-                'page_id'=>null,
-                'page'=>'home',
+                'page_id'=>1,
+                'content_templates_id'=>5,
                 'section_title'=>'APCC/BCIO in Figures',
                 'sub_title'=>'Counter Section',
                 'section_slug'=>'counters',
@@ -86,8 +87,8 @@ class SectionSettingsSeeder extends Seeder
                 'icon'=>null,
             ],
             [
-                'page_id'=>null,
-                'page'=>'home',
+                'page_id'=>1,
+                'content_templates_id'=>6,
                 'section_title'=>'Member Section',
                 'section_slug'=>'home-members',
                 'sub_title'=>'',
@@ -98,8 +99,8 @@ class SectionSettingsSeeder extends Seeder
                 'icon'=>null,
             ],
             [
-                'page_id'=>null,
-                'page'=>'home',
+                'page_id'=>1,
+                'content_templates_id'=>7,
                 'section_title'=>'Logo Section',
                 'sub_title'=>'',
                 'section_slug'=>'logos',
@@ -111,6 +112,6 @@ class SectionSettingsSeeder extends Seeder
             ],
         ];
 
-        SectionSetting::insert($sections);
+        PageSection::insert($sections);
     }
 }

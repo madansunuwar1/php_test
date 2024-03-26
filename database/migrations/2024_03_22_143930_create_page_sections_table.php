@@ -11,10 +11,10 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('section_settings', function (Blueprint $table) {
+        Schema::create('page_sections', function (Blueprint $table) {
             $table->id();
-            $table->string('page_id')->nullable();
-            $table->string('page')->nullable();
+            $table->foreignId('page_id');
+            $table->bigInteger('content_templates_id')->default(1);
             $table->string('section_title')->nullable();
             $table->string('sub_title')->nullable();
             $table->string('section_slug')->nullable();
@@ -32,6 +32,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('section_settings');
+        Schema::dropIfExists('page_sections');
     }
 };

@@ -16,6 +16,12 @@ class UserSeeder extends Seeder
         User::insert([
             [
                 'name' => 'Super Admin',
+                'email' => 'superadmin@admin.com',
+                'email_verified_at' => Carbon::now(),
+                'password'=>\Hash::make('superadmin')
+            ],
+            [
+                'name' => 'Super Admin',
                 'email' => 'admin@admin.com',
                 'email_verified_at' => Carbon::now(),
                 'password'=>\Hash::make('admin')

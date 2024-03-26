@@ -4,11 +4,15 @@ namespace App\Helper;
 
 class Constant
 {
-    public static function status($index)
+    public const HOME_PAGE = 1;
+    public static function status($status)
     {
-        $status = [0=>'Inactive', 1=>'Active'];
-        if($index){
-            return $status[$index];
+        $statusArray = ['publish' => 'Published', 'draft' => 'Draft', 'pending' => 'Pending Review'];
+        if (is_int($status)) {
+            $statusArray = [0 => 'Inactive', 1 => 'Active'];
+        }
+        if ($status) {
+            return $statusArray[$status] ?: $status;
         }
         return $status;
     }

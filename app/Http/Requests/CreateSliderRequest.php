@@ -21,14 +21,14 @@ class CreateSliderRequest extends FormRequest
      */
     public function rules(): array
     {
-        $requiredFields = [
-            'image'
-        ];
         $rules = [
             'title' => 'nullable',
             'description' => 'nullable',
             'image' => 'mimes:jpg,jpeg,png|max:3048',
             'status' => 'nullable',
+        ];
+        $requiredFields = [
+            'image'
         ];
         if ($this->method() == 'POST') {
             foreach ($rules as $field => $rule) {

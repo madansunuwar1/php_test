@@ -1,12 +1,12 @@
 <?php
 
 use App\Helper\Helper;
-use App\Http\Controllers\Api\PermissionAllocationController;
-use App\Http\Controllers\Api\PermissionsController;
 use App\Http\Controllers\Auth\AuthenticatedSessionController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\Front\HomeController;
-use App\Http\Controllers\SectionSettingsController;
+use App\Http\Controllers\PageContentController;
+use App\Http\Controllers\PageController;
+use App\Http\Controllers\PageSectionController;
 use App\Http\Controllers\SliderController;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\RoleController;
@@ -53,7 +53,7 @@ Route::get('email', function () {
 
 Route::middleware('auth')->group(function () {
 
-    $permission = 'role:admin|bcio|bcpn';
+    $permission = 'CheckRole:hasAccess';
 
     Route::get('logout', [AuthenticatedSessionController::class, 'destroy'])->name('logout');
 
@@ -65,7 +65,7 @@ Route::middleware('auth')->group(function () {
         //Route::put('bcio/{profile}/update', [ProfileController::class, 'update'])->name('update');
     });
 
-    Route::group(['middleware' => ['role:admin']], function () {
+    Route::group(['middleware' => ['CheckRole:admin']], function () {
         Route::group(['prefix' => 'user', 'as' => 'user.'], function () {
             Route::get('/', [UserController::class, 'index'])->name('index');
             Route::get('/edit/{user}', [UserController::class, 'edit'])->name('edit');
@@ -82,11 +82,11 @@ Route::middleware('auth')->group(function () {
         });
     });
 
-    Route::group(['middleware' => ['role:bcio'], 'as' => 'verification.bcio.'], function () {
+    Route::group(['middleware' => ['CheckRole:bcio'], 'as' => 'verification.bcio.'], function () {
         Route::get('verification/bcio', [BcioVerificationController::class, 'index'])->name('index');
     });
 
-    Route::group(['middleware' => ['role:bcpn'],'as'=>'verification.bcpn.'], function () {
+    Route::group(['middleware' => ['CheckRole:bcpn'],'as'=>'verification.bcpn.'], function () {
         Route::get('verification/bcpn', [BcpnVerificationController::class, 'index'])->name('index');
     });
 
@@ -96,21 +96,24 @@ Route::middleware('auth')->group(function () {
     Route::put('/update-status/{id}', [BcpnVerificationController::class, 'updateStatus'])->name('verification.bcpn.update');
 
     Route::resource('slider', SliderController::class)->middleware($permission);
+    Route::resource('page', PageController::class)->middleware($permission);
 
-    if(Helper::getSectionSettings('home')) {
-        foreach (Helper::getSectionSettings('home') as $setting) {
-            Route::group(['middleware' => ['role:admin'],'prefix' => $setting->section_slug . '/section', 'as'=>'section.'], function () {
-                Route::get('/', [SectionSettingsController::class, 'sectionList'])->name('index');
-                Route::get('/create', [SectionSettingsController::class, 'createSection'])->name('create');
-                Route::post('/store', [SectionSettingsController::class, 'storeSection'])->name('store');
-                Route::get('/edit/{role}', [SectionSettingsController::class, 'editSection'])->name('edit');
-                Route::get('/destroy', [SectionSettingsController::class, 'destroySection'])->name('destroy');
-                Route::put('/update/{role}', [SectionSettingsController::class, 'updateSection'])->name('update');
-            });
+    if(Helper::getPageSections(\App\Helper\Constant::HOME_PAGE)) {
+
+        Route::group(['middleware' => [$permission],'prefix' => "home/sections", 'as'=>'section.'], function () {
+            Route::get('/', [PageSectionController::class, 'index'])->name('index');
+            Route::get('/create', [PageSectionController::class, 'create'])->name('create');
+            Route::post('/store', [PageSectionController::class, 'store'])->name('store');
+            Route::get('/edit/{section}', [PageSectionController::class, 'edit'])->name('edit');
+            Route::put('/update/{section}', [PageSectionController::class, 'update'])->name('update');
+            Route::delete('/destroy/{section}', [PageSectionController::class, 'destroy'])->name('destroy');
+            Route::post('/sort-order', [PageSectionController::class, 'sortOrder'])->name('sort');
+        });
+        foreach (Helper::getPageSections(\App\Helper\Constant::HOME_PAGE) as $setting) {
             if($setting->section_slug == 'home-introduction'){
-                $permission = 'role:admin';
+                $permission = 'CheckRole:admin';
             }
-            Route::resource($setting->section_slug, SectionSettingsController::class)->middleware($permission);
+            Route::resource('home/'.$setting->section_slug, PageContentController::class)->middleware($permission);
         }
     }
 

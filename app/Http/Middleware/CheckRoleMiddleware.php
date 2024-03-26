@@ -12,19 +12,20 @@ class CheckRoleMiddleware
     /**
      * Handle an incoming request.
      *
-     * @param  \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response)  $next
+     * @param \Closure(\Illuminate\Http\Request): (\Symfony\Component\HttpFoundation\Response) $next
      */
     public function handle(Request $request, Closure $next, string $role): Response
     {
         $roles = [
-            'admin' => [Role::IS_ADMIN],
+            'admin' => [1, Role::IS_ADMIN],
             'bcio' => [Role::IS_BCIO],
             'bcpn' => [Role::IS_BCPN],
+            'hasAccess' => [1, Role::IS_ADMIN, Role::IS_BCIO, Role::IS_BCPN]
         ];
 
-        $roleIDs = $roles[$role]??[];
+        $roleIDs = $roles[$role] ?? [];
 
-        if(!auth()->check() || !is_array(auth()->user()->role_id, $roleIDs)){
+        if (!auth()->user()->hasAnyRole($roleIDs)) {
             abort(403);
         }
 

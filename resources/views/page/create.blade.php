@@ -8,14 +8,14 @@
                     <div class="col-12">
                         <div class="card">
                             <div class="card-header">
-                                <h4 class="card-title">Create {{ucwords(implode(' ', explode('-', Helper::getCurrentURL())))}}</h4>
+                                <h4 class="card-title">Create Slider</h4>
                                 <div class="card-tools">
-                                    <a href="{{url(Helper::getCurrentURL())}}" class="btn btn-danger float-end">Back</a>
+                                    <a href="{{url('slider')}}" class="btn btn-danger float-end">Back</a>
                                 </div>
                             </div>
                             <!-- /.card-header -->
                             <div class="card-body">
-                                <form action="{{url(Helper::getCurrentURL())}}" method="POST" id="banner-slider-form" enctype="multipart/form-data">
+                                <form action="{{url('slider')}}" method="POST" id="banner-slider-form" enctype="multipart/form-data">
                                     @csrf
                                     <div class="form-group">
                                         <label for="title">Title</label>
@@ -23,7 +23,7 @@
                                     </div>
                                     <div class="form-group">
                                         <label for="description">Description</label>
-                                        <textarea name="description" id="description" cols="30" rows="10" class="form-control editor"></textarea>
+                                        <textarea name="description" id="description" class="form-control editor"></textarea>
                                     </div>
                                     <div class="form-group">
                                         <label for="exampleInputFile">Slider Image*</label>

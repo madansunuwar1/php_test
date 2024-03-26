@@ -1,5 +1,7 @@
 <?php
 
+use App\Models\Page;
+use App\Models\Role;
 use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
@@ -11,18 +13,22 @@ return new class extends Migration
      */
     public function up(): void
     {
-        Schema::create('page_contents', function (Blueprint $table) {
+        Schema::create('pages', function (Blueprint $table) {
             $table->id();
-            $table->bigInteger('page_id');
-            $table->bigInteger('page_sections_id')->nullable();
             $table->string('title')->nullable();
             $table->string('sub_title')->nullable();
+            $table->string('slug')->unique();
             $table->longText('content')->nullable();
-            $table->string('image')->nullable();
-            $table->string('read_more')->nullable();
+            $table->string('page_image')->nullable();
+            $table->bigInteger('parent_id')->default(0);
             $table->bigInteger('user_id');
+            $table->enum('status', ['publish', 'draft', 'pending'])->default('publish');
             $table->timestamps();
+            $table->softDeletes();
         });
+        Page::insert([
+            ['title'=>'Home', 'slug'=>'home', 'user_id'=>2],
+        ]);
     }
 
     /**
@@ -30,6 +36,6 @@ return new class extends Migration
      */
     public function down(): void
     {
-        Schema::dropIfExists('page_contents');
+        Schema::dropIfExists('pages');
     }
 };

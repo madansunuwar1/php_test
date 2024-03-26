@@ -34,5 +34,27 @@
                 $(element).removeClass('is-invalid');
             }
         });
-    });
+
+        $(d).on('click', '.remove-img', function () {
+            if($(this).data('confirm') && !confirm($(this).data('confirm'))){
+                return false;
+            }
+            $(this).closest('.img-preview').remove();
+        });
+
+        $('.sortable').sortable({
+            update: function(event, ui) {
+                const sortTarget = $('[name="sort_order[]"]');
+                const token = sortTarget.data('token');
+                const url = sortTarget.data('url');
+                const order = sortTarget.map(function(){return $(this).val();}).get();
+                $.ajax({
+                    method: "POST",
+                    url: url,
+                    data: { order: order, "_token": token, }
+                });
+            }
+        });
+
+    });//document ready
 })(jQuery, document);

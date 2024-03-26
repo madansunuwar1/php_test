@@ -10,12 +10,12 @@ class UserController extends Controller
 {
     public function index()
     {
-        $users = User::with('role')->get();
+        $users = User::where('id', '<>', 1)->with('role')->get();
         return view('user.index', compact('users'));
     }
     public function edit(User $user)
     {
-        $roles = Role::select(['id', 'name'])->where('id', '<>', 1)->get();
+        $roles = Role::select(['id', 'name'])->whereNotIn('id', [1,2])->orderBy('id', 'ASC')->get();
         return view('user.edit', [
             'title' => 'Edit User',
             'roles' => $roles,

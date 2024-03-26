@@ -1,12 +1,12 @@
 {{--@php
-$user = Auth::user();
-$user->assignRole('admin');
-//$user->removeRole('bcio');
-$user->save();
-echo '<pre>';
-print_r($user->role);
-exit;
-    @endphp--}}
+    $user = Auth::user();
+    $user->assignRole('superadmin');
+    //$user->removeRole('bcio');
+    $user->save();
+    echo '<pre>';
+    print_r($user->role);
+    exit;
+@endphp--}}
 
 <li class="nav-item menu-open">
     <a href="{{ url('dashboard') }}" class="nav-link">
@@ -57,14 +57,14 @@ exit;
                 <p>Slider</p>
             </a>
         </li>
-        @php $menus = App\Helper\Helper::getSectionSettings('home') @endphp
+        @php $menus = App\Helper\Helper::getPageSections(\App\Helper\Constant::HOME_PAGE);@endphp
         @if($menus)
             @foreach($menus as $menu)
-                @if($menu->section_slug == 'home-introduction' && !Auth()->user()->hasRole('admin'))
+                @if($menu->section_slug == 'home-introduction' && !(Auth()->user()->hasRole('admin') || Auth()->user()->hasRole('superadmin')))
                     @continue
                 @endif
                 <li class="nav-item">
-                    <a href="{{url($menu->section_slug)}}" class="nav-link{{str_contains(url()->current(), $menu->section_slug)?' active':''}}">
+                    <a href="{{url(\App\Helper\Helper::getPageSlugByID($menu->page_id), $menu->section_slug)}}" class="nav-link{{str_contains(url()->current(), $menu->section_slug)?' active':''}}">
                         <i class="nav-icon {{$menu->icon?:'far fa-circle'}}"></i>
                         <p>{{$menu->sub_title?$menu->sub_title:$menu->section_title}}</p>
                     </a>
@@ -72,7 +72,7 @@ exit;
             @endforeach
         @endif
         <li class="nav-item">
-            <a href="{{url('section-settings')}}" class="nav-link">
+            <a href="{{url('home/sections')}}" class="nav-link">
                 <i class="fas fa-cog nav-icon"></i>
                 <p>Section Settings</p>
             </a>

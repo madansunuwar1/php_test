@@ -33,7 +33,6 @@
                                 <table id="example2" class="table table-bordered table-hover">
                                     <thead>
                                     <tr>
-                                        <th>Id</th>
                                         <th>Name</th>
                                         <th>Email</th>
                                         <th>Role</th>
@@ -43,7 +42,6 @@
                                     <tbody>
                                     @foreach ($users as $user )
                                         <tr>
-                                            <td>{{ $user->id }}</td>
                                             <td>{{ $user->name }}</td>
                                             <td>{{ $user->email }}</td>
                                             @if ($user->roles->isEmpty())

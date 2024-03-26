@@ -23,7 +23,7 @@
                                         <label for="email" class="form-label">Email</label>
                                         <input type="email" class="form-control" id="email" name="email" value="{{ $user->email }}">
                                     </div>
-                                    @if($user->role[0]->name == 'admin')
+                                    @if(!$user->role->isEmpty() && $user->role[0]->name == 'admin')
                                         <div class="mb-3">
                                             <label for="admin" class="form-label">Role</label>
                                             <select id="admin" class="form-control" disabled>

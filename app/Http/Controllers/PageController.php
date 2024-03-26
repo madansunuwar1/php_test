@@ -2,23 +2,36 @@
 
 namespace App\Http\Controllers;
 
-use App\Helper\AdminMenu\getSectionSettings;
 use App\Helper\Helper;
 use App\Http\Requests\CreateSliderRequest;
+use App\Models\Page;
 use App\Models\Slider;
+use Illuminate\Support\Facades\Request;
 use Illuminate\Support\Facades\Storage;
 
-class SliderController extends Controller
+class PageController extends Controller
 {
-    /*public function __construct()
+    public function index(Request $request)
     {
-        $this->authorizeResource(Slider::class, 'slider');
-    }*/
-    public function index()
-    {
-        $sliders = Auth()->user()->slider;
-        $title = 'Slider';
-        return view('slider.index', compact('sliders', 'title'));
+        $title = 'Page';
+        $limit = $request->limit ?? '';
+        $pages = Page::orderBy('id', 'DESC');
+        $keyword = $request->page;
+        if ($keyword) {
+            $pages->where(function ($query) use ($keyword) {
+                $query->orWhere('title', 'like', "%{$keyword}%");
+                $query->orWhere('slug', 'like', "%{$keyword}%");
+                $query->orWhere('id', $keyword);
+            });
+        }
+        $pages->with('sections', 'pageContents');
+        if ($limit) {
+            $pages = $pages->paginate($limit);
+        } else {
+            $result['data'] = $pages->get();
+            $pages = (object)$result;
+        }
+        return view('page.index', compact('pages', 'title'));
     }
 
     public function create()

@@ -31,7 +31,6 @@
                                 </section>
                                 <div class="mt-3">
                                     <a href="{{url(Helper::getCurrentURL(1).'/'.Helper::getCurrentURL(2).'/create')}}" class="btn btn-primary width-100">Add Section</a>
-                                    <a href="{{url(Helper::getCurrentURL(1))}}" class="btn btn-danger width-100">Back</a>
                                 </div>
                             </div>
                             <!-- /.card-header -->
@@ -40,29 +39,26 @@
                                     <thead>
                                     <tr>
                                         <th>Title</th>
-                                        <th>Description</th>
-                                        <th>Image</th>
-                                        <th>Status</th>
+                                        <th>Template</th>
                                         <th>Action</th>
                                     </tr>
                                     </thead>
-                                    <tbody>
-                                    {{-- @foreach ($sliders as $slider )
-                                         <tr>
-                                             <td>{{ $slider?->title }}</td>
-                                             <td>{{ Str::words(strip_tags($slider?->description), 10) }}</td>
-                                             <td><img src="{{asset('storage/uploads/'.$slider->image)}}" alt="" width="50px"></td>
-                                             <td>{{Constant::status($slider->status)}}</td>
-                                             <td>
-                                                 <a href="{{ route('slider.edit', $slider->id) }}" class="btn btn-primary">Edit</a>
-                                                 <form action="{{ route('slider.destroy', $slider) }}" method="POST" style="display: inline;">
-                                                     @csrf
-                                                     @method('DELETE')
-                                                     <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
-                                                 </form>
-                                             </td>
-                                         </tr>
-                                     @endforeach--}}
+                                    <tbody class="sortable">
+                                    @foreach ($sections as $section )
+                                        <tr>
+                                            <td><i class="fas fa-arrows-alt pull-left opacity-5"></i>{{ $section?->section_title }}</td>
+                                            <td>{{$section?->templates?->template_title}}</td>
+                                            <td>
+                                                <input type="hidden" name="sort_order[]" value="{{$section->id}}" data-url="{{route('section.sort')}}" data-token="{{ csrf_token() }}">
+                                                <a href="{{ route('section.edit', $section->id) }}" class="btn btn-primary">Edit</a>
+                                                <form action="{{ route('section.destroy', $section) }}" method="POST" style="display: inline;">
+                                                    @csrf
+                                                    @method('DELETE')
+                                                    <button type="submit" class="btn btn-danger" onclick="return confirm('Are you sure you want to delete?')">Delete</button>
+                                                </form>
+                                            </td>
+                                        </tr>
+                                    @endforeach
                                 </table>
                             </div>
                             <!-- /.card-body -->
