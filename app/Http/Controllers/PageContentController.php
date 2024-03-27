@@ -20,7 +20,7 @@ class PageContentController extends Controller
     public function index()
     {
         if (view()->exists('page.page-section-content.index')) {
-            $contents = PageContent::where('page_sections_id', $this->section->id)->get();
+            $contents = PageContent::where('page_section_id', $this->section->id)->get();
             return view('page.page-section-content.index', ['title' => 'Section Content', 'contents'=>$contents, 'section'=>$this->section]);
         }
         abort(404);
@@ -41,7 +41,7 @@ class PageContentController extends Controller
         $data['image'] = $path;
         $data['user_id'] = \Auth::id();
         $data['page_id'] = Helper::getPageIdBy(['slug' => Helper::getCurrentURL()]);
-        $data['page_sections_id'] = $this->section->id;
+        $data['page_section_id'] = $this->section->id;
         PageContent::create($data);
         return redirect(url(Helper::getCurrentURL(1), $this->section->section_slug))->with('status', 'Content added successfully.');
 
